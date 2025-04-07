@@ -15,13 +15,14 @@ function Home() {
   return (
     <div>
       <Nav />
-      <div>
-        <div className='flex justify-center gap-6 mb-6'>
+      <div className='px-5 md:px-8'>
+        {/* Category Buttons */}
+        <div className='flex flex-wrap justify-center gap-6 mb-6'>
           {Catagories.map(category => (
             <button
               key={category.id}
               onClick={() => setSelectedCategory(category.name)}
-              className='flex items-center gap-2 p-4 hover:bg-gray-200 rounded-lg'
+              className='flex items-center gap-2 p-4 hover:bg-gray-200 rounded-lg text-sm md:text-base'
             >
               {category.icon}
               <span>{category.name}</span>
@@ -31,7 +32,7 @@ function Home() {
 
         {/* Food List */}
         <div className='mt-10'>
-          <FoodList foodItems={filteredItems} />{' '}
+          <FoodList foodItems={filteredItems} />
         </div>
       </div>
     </div>
