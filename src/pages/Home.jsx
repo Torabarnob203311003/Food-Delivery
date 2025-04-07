@@ -1,26 +1,39 @@
-import React from 'react';
-import Nav from '../Components/Nav';
+import React, { useState } from 'react';
 import Catagories from '../Components/Catagories';
-
-import FoodList from '../Components/FoodList';
+import FoodList from '../Components/FoodList.jsx';
+import food_items from '../Data/Food.js';
+import Nav from '../Components/Nav.jsx';
 
 function Home() {
-  return (
-    <div className='bg-gradient-to-bl from-[#ffe4e6] to-[#ccfbf1] w-full min-h-[100vh]'>
-      <Nav />
+  const [selectedCategory, setSelectedCategory] = useState('All');
 
-      <div className='flex flex-wrap justify-center items-center gap-6 w-[100%]'>
-        {Catagories.map(item => (
-          <div
-            key={item.name}
-            className='w-[150px] h-[150px] bg-white flex flex-col items-start gap-5 p-5 justify-start text-[20px] font-semibold text-gray-500 rounded-lg shadow-lg hover:bg-yellow-100 cursor-pointer transition-all duration-200'
-          >
-            {item.icon}
-            {item.name}
-          </div>
-        ))}
+  const filteredItems = food_items.filter(item => {
+    if (selectedCategory === 'All') return true;
+    return item.food_category.toLowerCase() === selectedCategory.toLowerCase();
+  });
+
+  return (
+    <div>
+      <Nav />
+      <div>
+        <div className='flex justify-center gap-6 mb-6'>
+          {Catagories.map(category => (
+            <button
+              key={category.id}
+              onClick={() => setSelectedCategory(category.name)}
+              className='flex items-center gap-2 p-4 hover:bg-gray-200 rounded-lg'
+            >
+              {category.icon}
+              <span>{category.name}</span>
+            </button>
+          ))}
+        </div>
+
+        {/* Food List */}
+        <div className='mt-10'>
+          <FoodList foodItems={filteredItems} />{' '}
+        </div>
       </div>
-      <FoodList />
     </div>
   );
 }

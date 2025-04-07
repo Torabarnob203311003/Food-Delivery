@@ -4,42 +4,44 @@ import { LuSoup } from 'react-icons/lu';
 import { CiBowlNoodles } from 'react-icons/ci';
 import { FaBurger } from 'react-icons/fa6';
 import { FaPizzaSlice } from 'react-icons/fa6';
+import { GiCupcake } from 'react-icons/gi'; // Added for Dessert category
 
 const Catagories = [
   {
     id: 1,
-    name: 'All ',
+    name: 'All',
     icon: <CiMenuBurger className='w-[60px] h-[60px] text-orange-500' />,
   },
   {
     id: 2,
-    name: 'Breakfast  ',
+    name: 'Breakfast',
     icon: <MdFreeBreakfast className='w-[60px] h-[60px] text-orange-500' />,
   },
   {
     id: 3,
-    name: 'Soup ',
+    name: 'soups',
     icon: <LuSoup className='w-[60px] h-[60px] text-orange-500' />,
   },
   {
     id: 4,
-    name: 'Noodles ',
+    name: 'pasta',
     icon: <CiBowlNoodles className='w-[60px] h-[60px] text-orange-500' />,
   },
   {
     id: 5,
-    name: 'Burger ',
+    name: 'Burger',
     icon: <FaBurger className='w-[60px] h-[60px] text-orange-500' />,
   },
   {
     id: 6,
-    name: 'Pizza ',
+    name: 'Pizza',
     icon: <FaPizzaSlice className='w-[60px] h-[60px] text-orange-500' />,
   },
   {
     id: 7,
-    name: 'Desert ',
-    icon: <CiMenuBurger className='w-[60px] h-[60px] text-orange-500' />,
+    name: 'main_course',
+    icon: <GiCupcake className='w-[60px] h-[60px] text-orange-500' />, // Changed to a cupcake icon for Dessert
   },
 ];
+
 export default Catagories;
