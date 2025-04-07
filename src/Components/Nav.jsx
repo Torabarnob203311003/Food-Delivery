@@ -5,7 +5,7 @@ import { IoFastFoodOutline } from 'react-icons/io5';
 
 function Nav() {
   return (
-    <div className=' w-full h-[100px] flex  justify-between items-center px-8'>
+    <div className=' w-full h-[100px] flex  justify-between items-center px-5 md:px-8 '>
       <div className=' w-[60px] h-[60px] bg-white flex justify-center items-center rounded-md shadow-xl '>
         <IoFastFoodOutline className='w-[30px] h-[30px] text-orange-500' />
       </div>
@@ -18,12 +18,12 @@ function Nav() {
         />
       </form>
 
-      <div className=' w-[60px] h-[60px] bg-white flex justify-center items-center shadow-xl  relative '>
+      <div className=' w-[60px] h-[60px] bg-white flex justify-center items-center shadow-xl  relative rounded-md '>
         <span className=' absolute top-0 right-2 font-bold text-[18px] text-orange-500'>
           {' '}
           0
         </span>
-        <BiSolidShoppingBagAlt className='w-[30px] h-[30px] text-orange-500  ' />
+        <BiSolidShoppingBagAlt className='w-[30px] h-[30px] text-orange-500   ' />
       </div>
     </div>
   );
