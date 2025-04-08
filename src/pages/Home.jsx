@@ -1,5 +1,6 @@
 import React, { useState, useContext } from 'react';
-import { dataContext } from '../Context/UserContext';
+import { dataContext } from '../Context/UserContext'; // Make sure to import the context
+import Catagories from '../Components/Catagories';
 import FoodList from '../Components/FoodList.jsx';
 import food_items from '../Data/Food.js';
 import Nav from '../Components/Nav.jsx';
