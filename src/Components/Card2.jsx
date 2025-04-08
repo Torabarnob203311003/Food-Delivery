@@ -21,7 +21,7 @@ function CartCard() {
             <h3 className='text-lg font-semibold text-gray-800'>Pancake</h3>
             <p className='text-sm text-gray-500'>Delicious fluffy pancakes</p>
           </div>
-          <span className='text-orange-500 font-bold'>$6.99</span>
+          <span className='text-orange-500 font-bold'>BDT 499TK</span>
         </div>
 
         {/* Quantity and Remove */}

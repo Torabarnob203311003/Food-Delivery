@@ -1,11 +1,15 @@
 import React from 'react';
 import { RiLeafLine } from 'react-icons/ri';
 import { GiMeat } from 'react-icons/gi';
+import { useDispatch } from 'react-redux';
+import { AddItem } from '../Redux/CardSlice.js'; // 🔁 Adjust the path to your slice
 
 function Card({ food }) {
+  const dispatch = useDispatch();
+
   return (
     <div className='w-full sm:w-[300px] md:w-[350px] lg:w-[400px] xl:w-[450px] h-auto bg-white p-4 rounded-2xl flex flex-col gap-4 shadow-md hover:shadow-xl hover:shadow-orange-400 transition-shadow duration-300'>
-      {/* Image Section */}
+      {/* Image */}
       <div className='w-full h-[220px] sm:h-[240px] md:h-[260px] lg:h-[280px] xl:h-[300px] overflow-hidden rounded-xl'>
         <img
           src={food.food_image}
@@ -39,8 +43,11 @@ function Card({ food }) {
         </div>
       </div>
 
-      {/* Button */}
-      <button className='w-full mt-2 mb-1 p-3 bg-orange-500 rounded-xl text-lg sm:text-base text-white hover:bg-yellow-100 hover:text-orange-500 font-semibold transition-all duration-300'>
+      {/* Add to Cart Button */}
+      <button
+        className='w-full mt-2 mb-1 p-3 bg-orange-500 rounded-xl text-lg sm:text-base text-white hover:bg-yellow-100 hover:text-orange-500 font-semibold transition-all duration-300'
+        onClick={() => dispatch(AddItem(food))}
+      >
         Add to Dish
       </button>
     </div>

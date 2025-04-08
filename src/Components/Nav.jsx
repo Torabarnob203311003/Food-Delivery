@@ -3,9 +3,11 @@ import { FiSearch } from 'react-icons/fi';
 import { BiSolidShoppingBagAlt } from 'react-icons/bi';
 import { IoFastFoodOutline } from 'react-icons/io5';
 import { dataContext } from '../Context/UserContext';
+import { useSelector } from 'react-redux';
 
 function Nav() {
   const { input, setInput, setShowCart } = useContext(dataContext); // Accessing setShowCart
+  const items = useSelector(state => state.cart);
 
   return (
     <div className='w-full h-[100px] flex justify-between items-center px-5 md:px-8'>
@@ -35,7 +37,7 @@ function Nav() {
         onClick={() => setShowCart(true)} // Show cart when clicked
       >
         <span className='absolute top-0 right-2 font-bold text-[18px] text-orange-500'>
-          0
+          {items.length}
         </span>
         <BiSolidShoppingBagAlt className='w-[30px] h-[30px] text-orange-500' />
       </div>
