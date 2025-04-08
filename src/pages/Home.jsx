@@ -5,6 +5,7 @@ import FoodList from '../Components/FoodList.jsx';
 import food_items from '../Data/Food.js';
 import Nav from '../Components/Nav.jsx';
 import { FaBackspace } from 'react-icons/fa';
+import Card2 from '../Components/Card2.jsx';
 
 function Home() {
   const { input, setShowCart, showCart } = useContext(dataContext); // Accessing showCart and setShowCart
@@ -80,7 +81,7 @@ function Home() {
           />
         </header>
 
-        {/* Cart Content */}
+        <Card2></Card2>
         <div>{/* Add cart items and content here */}</div>
       </div>
     </div>
