@@ -5,7 +5,7 @@ import { IoFastFoodOutline } from 'react-icons/io5';
 import { dataContext } from '../Context/UserContext';
 
 function Nav() {
-  const { input, setInput } = useContext(dataContext);
+  const { input, setInput, setShowCart } = useContext(dataContext); // Accessing setShowCart
 
   return (
     <div className='w-full h-[100px] flex justify-between items-center px-5 md:px-8'>
@@ -30,7 +30,10 @@ function Nav() {
       </form>
 
       {/* Cart Icon */}
-      <div className='w-[60px] h-[60px] bg-white flex justify-center items-center shadow-xl relative rounded-md'>
+      <div
+        className='w-[60px] h-[60px] bg-white flex justify-center items-center shadow-xl relative rounded-md'
+        onClick={() => setShowCart(true)} // Show cart when clicked
+      >
         <span className='absolute top-0 right-2 font-bold text-[18px] text-orange-500'>
           0
         </span>
