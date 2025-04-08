@@ -1,14 +1,25 @@
 import React from 'react';
-import Card from './Card'; // Assuming you have a Card component to display each food item
+import Card from './Card';
 
 function FoodList({ foodItems }) {
   return (
-    <div className='flex flex-wrap justify-center gap-6'>
-      {foodItems.length > 0 ? (
-        foodItems.map(item => <Card key={item.id} food={item} />)
-      ) : (
-        <div>No food items found in this category.</div>
-      )}
+    <div className='bg-white p-6 sm:p-8 md:p-10 rounded-xl shadow-sm'>
+      <div className='flex flex-wrap justify-center gap-6 transition-all duration-300'>
+        {foodItems.length > 0 ? (
+          foodItems.map(item => (
+            <div
+              key={item.id}
+              className='transform transition-transform hover:scale-105'
+            >
+              <Card food={item} />
+            </div>
+          ))
+        ) : (
+          <div className='text-gray-500 text-lg font-medium'>
+            No food items found in this category.
+          </div>
+        )}
+      </div>
     </div>
   );
 }

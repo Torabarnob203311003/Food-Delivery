@@ -13,16 +13,22 @@ function Home() {
   });
 
   return (
-    <div>
+    <div className='bg-gradient-to-bl from-[#edd2f3] via-[#fffcdc] to-[#84dfff] min-h-screen'>
       <Nav />
       <div className='px-5 md:px-8'>
         {/* Category Buttons */}
-        <div className='flex flex-wrap justify-center gap-6 mb-6'>
+        <div className='flex flex-wrap justify-center gap-4 sm:gap-6 my-6'>
           {Catagories.map(category => (
             <button
               key={category.id}
               onClick={() => setSelectedCategory(category.name)}
-              className='flex items-center gap-2 p-4 hover:bg-gray-200 rounded-lg text-sm md:text-base'
+              className={`flex items-center gap-2 px-4 py-2 rounded-full border transition-all duration-300
+                ${
+                  selectedCategory === category.name
+                    ? 'bg-orange-200 text-gray-500 font-semibold shadow-md'
+                    : 'bg-white text-gray-700 hover:bg-orange-100 hover:text-orange-600'
+                }
+                text-sm md:text-base`}
             >
               {category.icon}
               <span>{category.name}</span>
