@@ -7,7 +7,7 @@ import { useSelector } from 'react-redux';
 
 function Nav() {
   const { input, setInput, setShowCart } = useContext(dataContext); // Accessing setShowCart
-  const items = useSelector(state => state.cart);
+  const cart = useSelector(state => state.cart.cart); // Accessing the cart state
 
   return (
     <div className='w-full h-[100px] flex justify-between items-center px-5 md:px-8'>
@@ -36,9 +36,11 @@ function Nav() {
         className='w-[60px] h-[60px] bg-white flex justify-center items-center shadow-xl relative rounded-md'
         onClick={() => setShowCart(true)} // Show cart when clicked
       >
-        <span className='absolute top-0 right-2 font-bold text-[18px] text-orange-500'>
-          {items.length}
-        </span>
+        {cart.length > 0 && (
+          <span className='absolute top-0 right-2 font-bold text-[18px] text-orange-500'>
+            {cart.length}
+          </span>
+        )}
         <BiSolidShoppingBagAlt className='w-[30px] h-[30px] text-orange-500' />
       </div>
     </div>

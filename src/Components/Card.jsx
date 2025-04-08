@@ -2,7 +2,7 @@ import React from 'react';
 import { RiLeafLine } from 'react-icons/ri';
 import { GiMeat } from 'react-icons/gi';
 import { useDispatch } from 'react-redux';
-import { AddItem } from '../Redux/CardSlice.js'; // 🔁 Adjust the path to your slice
+import { addItem } from '../Redux/CardSlice.js';
 
 function Card({ food }) {
   const dispatch = useDispatch();
@@ -46,7 +46,7 @@ function Card({ food }) {
       {/* Add to Cart Button */}
       <button
         className='w-full mt-2 mb-1 p-3 bg-orange-500 rounded-xl text-lg sm:text-base text-white hover:bg-yellow-100 hover:text-orange-500 font-semibold transition-all duration-300'
-        onClick={() => dispatch(AddItem(food))}
+        onClick={() => dispatch(addItem(food))}
       >
         Add to Dish
       </button>
