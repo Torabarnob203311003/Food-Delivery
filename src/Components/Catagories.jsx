@@ -4,7 +4,7 @@ import { LuSoup } from 'react-icons/lu';
 import { CiBowlNoodles } from 'react-icons/ci';
 import { FaBurger } from 'react-icons/fa6';
 import { FaPizzaSlice } from 'react-icons/fa6';
-import { GiCupcake } from 'react-icons/gi'; // Added for Dessert category
+import { FaBowlRice } from 'react-icons/fa6';
 
 const Catagories = [
   {
@@ -40,7 +40,7 @@ const Catagories = [
   {
     id: 7,
     name: 'main_course',
-    icon: <GiCupcake className='w-[60px] h-[60px] text-orange-500' />, // Changed to a cupcake icon for Dessert
+    icon: <FaBowlRice className='w-[60px] h-[60px] text-orange-500' />,
   },
 ];
 

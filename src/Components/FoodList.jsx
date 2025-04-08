@@ -16,7 +16,7 @@ function FoodList({ foodItems }) {
           ))
         ) : (
           <div className='text-gray-500 text-lg font-medium'>
-            No food items found in this category.
+            No food items found matching your search.
           </div>
         )}
       </div>

@@ -1,15 +1,23 @@
-import React, { useState } from 'react';
-import Catagories from '../Components/Catagories';
+import React, { useState, useContext } from 'react';
+import { dataContext } from '../Context/UserContext';
 import FoodList from '../Components/FoodList.jsx';
 import food_items from '../Data/Food.js';
 import Nav from '../Components/Nav.jsx';
 
 function Home() {
+  const { input } = useContext(dataContext); // Access input from context
   const [selectedCategory, setSelectedCategory] = useState('All');
 
+  // Filter food items based on selected category and input search
   const filteredItems = food_items.filter(item => {
-    if (selectedCategory === 'All') return true;
-    return item.food_category.toLowerCase() === selectedCategory.toLowerCase();
+    const matchesCategory =
+      selectedCategory === 'All' ||
+      item.food_category.toLowerCase() === selectedCategory.toLowerCase();
+    const matchesSearch = item.food_name
+      .toLowerCase()
+      .includes(input.toLowerCase()); // Match food name with search input
+
+    return matchesCategory && matchesSearch;
   });
 
   return (
@@ -25,7 +33,7 @@ function Home() {
               className={`flex items-center gap-2 px-4 py-2 rounded-full border transition-all duration-300
                 ${
                   selectedCategory === category.name
-                    ? 'bg-orange-200 text-gray-500 font-semibold shadow-md'
+                    ? 'bg-yellow-200 text-gray-500 font-semibold shadow-md'
                     : 'bg-white text-gray-700 hover:bg-orange-100 hover:text-orange-600'
                 }
                 text-sm md:text-base`}
