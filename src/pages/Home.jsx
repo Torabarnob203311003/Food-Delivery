@@ -81,7 +81,7 @@ function Home() {
           />
         </header>
 
-        <Card2></Card2>
+        <Card2 className=''></Card2>
         <div>{/* Add cart items and content here */}</div>
       </div>
     </div>

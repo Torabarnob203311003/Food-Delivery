@@ -4,16 +4,32 @@ const initialState = {
   cart: [],
 };
 
-const CardSlice = createSlice({
+const cardSlice = createSlice({
   name: 'cart',
   initialState,
   reducers: {
     addItem: (state, action) => {
-      state.cart.push(action.payload);
+      const item = action.payload;
+      const existingItem = state.cart.find(cartItem => cartItem.id === item.id);
+
+      if (existingItem) {
+        existingItem.quantity += 1;
+      } else {
+        state.cart.push({ ...item, quantity: 1 });
+      }
     },
-    // You can add more reducers like removeItem, clearCart, etc.
+    removeItem: (state, action) => {
+      state.cart = state.cart.filter(item => item.id !== action.payload);
+    },
+    updateQuantity: (state, action) => {
+      const { id, quantity } = action.payload;
+      const item = state.cart.find(item => item.id === id);
+      if (item) {
+        item.quantity = quantity;
+      }
+    },
   },
 });
 
-export const { addItem } = CardSlice.actions;
-export default CardSlice.reducer;
+export const { addItem, removeItem, updateQuantity } = cardSlice.actions;
+export default cardSlice.reducer;
