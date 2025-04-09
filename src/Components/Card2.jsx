@@ -7,24 +7,20 @@ function CartCard() {
   const dispatch = useDispatch();
   const cartItems = useSelector(state => state.cart.cart);
 
-  const [isFullScreen, setIsFullScreen] = useState(false);
-
+  // Function to handle quantity change
   const handleQuantityChange = (id, newQuantity) => {
     if (newQuantity > 0) {
       dispatch(updateQuantity({ id, quantity: newQuantity }));
     }
   };
 
-  const toggleFullScreen = () => {
-    setIsFullScreen(!isFullScreen);
-  };
+  // Calculate total price
+  const totalPrice = cartItems.reduce((total, item) => {
+    return total + item.price * item.quantity;
+  }, 0);
 
   return (
-    <div
-      className={`w-full ${
-        isFullScreen ? 'fixed inset-0 bg-white z-50 p-4' : ''
-      }`}
-    >
+    <div className='w-full h-screen overflow-y-auto'>
       {cartItems.length === 0 ? (
         <div className='text-center py-8 w-full sm:w-[90%] md:w-[80%] lg:w-[70%] mx-auto'>
           <h2 className='text-xl text-orange-500 font-semibold'>
@@ -38,9 +34,7 @@ function CartCard() {
         cartItems.map(item => (
           <div
             key={item.id}
-            className={`w-full sm:w-[95%] md:w-[90%] lg:w-[80%] bg-white rounded-lg shadow-md flex flex-col sm:flex-row p-4 gap-4 mb-4 sm:h-auto sm:p-4 sm:gap-4 md:h-[140px] md:p-4 lg:h-[150px] lg:p-6 mx-auto ${
-              isFullScreen ? 'h-full' : ''
-            }`}
+            className='w-full sm:w-[95%] md:w-[90%] lg:w-[80%] bg-white rounded-lg shadow-md flex flex-col sm:flex-row p-4 gap-4 mb-4 sm:h-auto sm:p-4 sm:gap-4 md:h-[140px] md:p-4 lg:h-[150px] lg:p-6 mx-auto'
           >
             {/* Image */}
             <div className='w-[100px] h-[100px] overflow-hidden rounded-md sm:w-[90px] sm:h-[90px] md:w-[110px] md:h-[110px] lg:w-[120px] lg:h-[120px] mx-auto sm:mx-0'>
@@ -100,13 +94,22 @@ function CartCard() {
         ))
       )}
 
-      {/* Button to toggle full-screen */}
-      <button
-        className='fixed bottom-4 right-4 p-3 bg-orange-500 text-white rounded-full sm:hidden md:hidden lg:hidden'
-        onClick={toggleFullScreen}
-      >
-        {isFullScreen ? 'Close Cart' : 'Open Cart'}
-      </button>
+      {/* Total Price Section */}
+      {cartItems.length > 0 && (
+        <div className='w-full sm:w-[90%] md:w-[80%] lg:w-[70%] mx-auto mt-4 p-4 bg-gray-100 rounded-lg'>
+          <div className='flex flex-col sm:flex-row justify-between items-center'>
+            {/* Total Price Label */}
+            <h3 className='text-lg sm:text-sm md:text-lg font-semibold text-gray-800'>
+              Total Price
+            </h3>
+
+            {/* Total Price Amount */}
+            <span className='text-xl sm:text-base md:text-xl text-orange-500 font-bold mt-2 sm:mt-0'>
+              BDT {totalPrice.toFixed(2)} Tk
+            </span>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
