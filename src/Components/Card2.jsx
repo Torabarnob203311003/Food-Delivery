@@ -1,7 +1,7 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { FaTrash } from 'react-icons/fa';
-import { removeItem, updateQuantity } from '../Redux/CardSlice.js';
+import { removeItem, updateQuantity, clearCart } from '../Redux/CardSlice.js';
 
 function CartCard() {
   const dispatch = useDispatch();
@@ -17,15 +17,24 @@ function CartCard() {
     return total + item.price * item.quantity;
   }, 0);
 
+  const deliveryFee = 20;
+  const vat = totalPrice * 0.05; // 5% VAT
+  const finalTotal = totalPrice + vat + deliveryFee;
+
   const handlePlaceOrder = () => {
-    alert('Order placed successfully!');
-    // You can redirect, clear cart, or do other actions here
+    const confirmed = window.confirm(
+      'Are you sure you want to place the order?'
+    );
+    if (confirmed) {
+      alert('Order placed successfully!');
+      dispatch(clearCart());
+    }
   };
 
   return (
-    <div className='w-full h-screen flex flex-col bg-gray-50'>
+    <div className='w-full h-screen flex flex-col'>
       {/* Scrollable Cart Section */}
-      <div className='flex-1 overflow-y-auto pb-44'>
+      <div className='flex-1 overflow-y-auto pb-36 w-full mt-3'>
         {cartItems.length === 0 ? (
           <div className='text-center py-8 w-[90%] sm:w-[85%] md:w-[80%] lg:w-[70%] mx-auto'>
             <h2 className='text-lg sm:text-xl text-orange-500 font-semibold'>
@@ -39,10 +48,10 @@ function CartCard() {
           cartItems.map(item => (
             <div
               key={item.id}
-              className='w-[95%] sm:w-[90%] md:w-[85%] lg:w-[70%] bg-white rounded-xl shadow-md flex flex-col sm:flex-row p-3 gap-3 mb-4 mx-auto transition-transform hover:scale-[1.01]'
+              className='w-[90%] sm:w-[80%] md:w-[75%] lg:w-[60%] bg-white rounded-xl shadow-md flex flex-col sm:flex-row p-2 gap-3 mb-4 mx-auto transition-transform hover:scale-[1.02] sm:hover:scale-[1.03]'
             >
               {/* Image */}
-              <div className='w-[80px] h-[80px] sm:w-[90px] sm:h-[90px] md:w-[110px] md:h-[110px] lg:w-[120px] lg:h-[120px] overflow-hidden rounded-md mx-auto sm:mx-0'>
+              <div className='w-[60px] h-[60px] sm:w-[80px] sm:h-[80px] md:w-[90px] md:h-[90px] lg:w-[100px] lg:h-[100px] overflow-hidden rounded-md mx-auto sm:mx-0'>
                 <img
                   src={item.image}
                   alt={item.name}
@@ -62,15 +71,14 @@ function CartCard() {
                     </p>
                   </div>
 
-                  {/* Styled Price */}
-                  <span className='bg-gradient-to-r from-orange-200 to-yellow-100 text-orange-700 font-bold text-sm sm:text-base md:text-lg px-4 py-1 rounded-full shadow-md border border-orange-300 mt-1 sm:mt-0'>
-                    ৳ {item.price}
+                  <span className='bg-gradient-to-r from-orange-200 to-yellow-100 text-orange-700 font-bold text-sm sm:text-base md:text-lg px-3 py-1 rounded-full shadow-md border border-orange-300 mt-1 sm:mt-0'>
+                    ৳ {item.price.toLocaleString()}
                   </span>
                 </div>
 
                 {/* Quantity and Remove */}
                 <div className='flex justify-between items-center mt-3'>
-                  <div className='flex items-center gap-2'>
+                  <div className='flex items-center gap-1'>
                     <button
                       className='px-2 py-1 bg-gray-200 rounded hover:bg-gray-300 text-sm'
                       onClick={() =>
@@ -89,10 +97,13 @@ function CartCard() {
                       +
                     </button>
                   </div>
-                  <FaTrash
-                    className='text-red-500 cursor-pointer hover:text-red-700 text-lg'
-                    onClick={() => dispatch(removeItem(item.id))}
-                  />
+
+                  <div className='ml-2'>
+                    <FaTrash
+                      className='text-red-500 cursor-pointer hover:text-red-700 text-lg'
+                      onClick={() => dispatch(removeItem(item.id))}
+                    />
+                  </div>
                 </div>
               </div>
             </div>
@@ -102,24 +113,59 @@ function CartCard() {
 
       {/* Sticky Total Price Section */}
       {cartItems.length > 0 && (
-        <div className='w-full fixed bottom-0 left-0 bg-white shadow-inner border-t border-gray-300 p-4 z-10'>
+        <div className='w-full fixed bottom-0 left-0 bg-white shadow-lg border-t border-gray-300 p-4 z-10'>
           <div className='w-[95%] sm:w-[90%] md:w-[85%] lg:w-[70%] mx-auto flex flex-col sm:flex-row justify-between items-center gap-4'>
-            <div className='flex flex-col sm:flex-row sm:items-center gap-3'>
-              <h3 className='text-sm sm:text-base md:text-lg font-semibold text-gray-800'>
-                Total Price
-              </h3>
-              <span className='bg-orange-100 text-orange-600 font-bold text-lg sm:text-xl px-4 py-2 rounded-full shadow-sm border border-orange-300'>
-                ৳ {totalPrice.toFixed(2)}
-              </span>
+            {/* Total Section */}
+            <div className='flex flex-col gap-3 w-full'>
+              {/* Subtotal */}
+              <div className='flex justify-between items-center'>
+                <h3 className='text-xs sm:text-sm md:text-base font-semibold text-gray-800'>
+                  Subtotal
+                </h3>
+                <span className='bg-gradient-to-r from-orange-100 to-yellow-50 text-orange-500 font-bold text-sm sm:text-lg px-4 py-2 rounded-full shadow-md'>
+                  ৳ {totalPrice.toFixed(2)}
+                </span>
+              </div>
+
+              {/* Delivery Fee */}
+              <div className='flex justify-between items-center'>
+                <h3 className='text-xs sm:text-sm md:text-base font-semibold text-gray-800'>
+                  Delivery Fee
+                </h3>
+                <span className='bg-gradient-to-r from-orange-200 to-yellow-100 text-orange-700 font-bold text-sm sm:text-lg px-4 py-2 rounded-full shadow-md'>
+                  ৳ {deliveryFee}
+                </span>
+              </div>
+
+              {/* VAT */}
+              <div className='flex justify-between items-center'>
+                <h3 className='text-xs sm:text-sm md:text-base font-semibold text-gray-800'>
+                  VAT (5%)
+                </h3>
+                <span className='bg-gradient-to-r from-orange-100 to-yellow-50 text-orange-500 font-bold text-sm sm:text-lg px-4 py-2 rounded-full shadow-md'>
+                  ৳ {vat.toFixed(2)}
+                </span>
+              </div>
             </div>
 
-            <button
-              onClick={handlePlaceOrder}
-              className='bg-gradient-to-r from-orange-400 to-yellow-300 hover:from-orange-500 hover:to-yellow-400 text-white font-semibold text-sm sm:text-base md:text-lg px-4 sm:px-6 py-2 rounded-full shadow-md transition duration-300 mt-4 sm:mt-0'
-            >
-              Place Order
-            </button>
+            {/* Final Total */}
+            <div className='flex justify-between items-center w-full mt-3'>
+              <h3 className='text-xs sm:text-sm md:text-base font-semibold text-gray-800'>
+                Final Total
+              </h3>
+              <span className='bg-gradient-to-r from-orange-100 to-yellow-50 text-orange-500 font-bold text-sm sm:text-lg px-4 py-2 rounded-full shadow-md'>
+                ৳ {finalTotal.toFixed(2)}
+              </span>
+            </div>
           </div>
+
+          {/* Place Order Button */}
+          <button
+            onClick={handlePlaceOrder}
+            className='w-full bg-gradient-to-r from-orange-500 to-yellow-400 hover:from-orange-600 hover:to-yellow-500 text-white font-semibold text-sm sm:text-base md:text-lg px-4 py-2 rounded-full shadow-md transition duration-300 mt-4 flex justify-center items-center'
+          >
+            Place Order
+          </button>
         </div>
       )}
     </div>

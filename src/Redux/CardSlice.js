@@ -28,8 +28,12 @@ const cardSlice = createSlice({
         item.quantity = quantity;
       }
     },
+    clearCart: state => {
+      state.cart = [];
+    },
   },
 });
 
-export const { addItem, removeItem, updateQuantity } = cardSlice.actions;
+export const { addItem, removeItem, updateQuantity, clearCart } =
+  cardSlice.actions;
 export default cardSlice.reducer;
