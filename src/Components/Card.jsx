@@ -3,6 +3,8 @@ import { RiLeafLine } from 'react-icons/ri';
 import { GiMeat } from 'react-icons/gi';
 import { useDispatch } from 'react-redux';
 import { addItem } from '../Redux/CardSlice.js';
+import { toast } from 'react-toastify'; // <-- Import toast
+import 'react-toastify/dist/ReactToastify.css';
 
 function Card({ food }) {
   const dispatch = useDispatch();
@@ -63,7 +65,7 @@ function Card({ food }) {
       {/* Add to Cart Button */}
       <button
         className='w-full mt-2 mb-1 p-3 bg-orange-500 rounded-xl text-lg sm:text-base text-white hover:bg-yellow-100 hover:text-orange-500 font-semibold transition-all duration-300'
-        onClick={() =>
+        onClick={() => {
           dispatch(
             addItem({
               id: food.id,
@@ -72,8 +74,9 @@ function Card({ food }) {
               image: food.food_image,
               quantity,
             })
-          )
-        }
+          );
+          toast.success('Dish Added');
+        }}
       >
         Add to Dish
       </button>

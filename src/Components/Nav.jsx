@@ -18,12 +18,12 @@ function Nav() {
 
       {/* Search Bar */}
       <form
-        className='h-[60px] w-full md:w-[70%] flex items-center bg-white px-5 gap-5 rounded-md shadow-md'
+        className='h-[50px] w-[50%] sm:w-[60%] md:w-[70%] flex items-center bg-white px-3 sm:px-4 gap-2 rounded-md shadow-md'
         onSubmit={e => e.preventDefault()}
       >
-        <FiSearch className='text-orange-500 w-[20px] h-[20px]' />
+        <FiSearch className='text-orange-500 w-[16px] h-[16px]' />
         <input
-          className='w-full outline-none text-[20px]'
+          className='w-full outline-none text-[16px] sm:text-[18px]'
           type='text'
           onChange={e => setInput(e.target.value)}
           value={input}
@@ -41,7 +41,7 @@ function Nav() {
             {cart.length}
           </span>
         )}
-        <BiSolidShoppingBagAlt className='w-[30px] h-[30px] text-orange-500' />
+        <BiSolidShoppingBagAlt className='w-[24px] h-[24px] text-orange-500' />
       </div>
     </div>
   );

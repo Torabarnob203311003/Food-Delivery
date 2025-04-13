@@ -2,6 +2,8 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { FaTrash } from 'react-icons/fa';
 import { removeItem, updateQuantity, clearCart } from '../Redux/CardSlice.js';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function CartCard() {
   const dispatch = useDispatch();
@@ -10,6 +12,24 @@ function CartCard() {
   const handleQuantityChange = (id, newQuantity) => {
     if (newQuantity > 0) {
       dispatch(updateQuantity({ id, quantity: newQuantity }));
+      toast.info('Quantity updated');
+    } else {
+      toast.warning('Quantity must be at least 1');
+    }
+  };
+
+  const handleRemoveItem = id => {
+    dispatch(removeItem(id));
+    toast.error('Item removed from cart');
+  };
+
+  const handlePlaceOrder = () => {
+    const confirmed = window.confirm(
+      'Are you sure you want to place the order?'
+    );
+    if (confirmed) {
+      dispatch(clearCart());
+      toast.success('Order placed successfully!'); // Toast notification on order placement
     }
   };
 
@@ -20,16 +40,6 @@ function CartCard() {
   const deliveryFee = 20;
   const vat = totalPrice * 0.05; // 5% VAT
   const finalTotal = totalPrice + vat + deliveryFee;
-
-  const handlePlaceOrder = () => {
-    const confirmed = window.confirm(
-      'Are you sure you want to place the order?'
-    );
-    if (confirmed) {
-      alert('Order placed successfully!');
-      dispatch(clearCart());
-    }
-  };
 
   return (
     <div className='w-full h-screen flex flex-col'>
@@ -101,7 +111,7 @@ function CartCard() {
                   <div className='ml-2'>
                     <FaTrash
                       className='text-red-500 cursor-pointer hover:text-red-700 text-lg'
-                      onClick={() => dispatch(removeItem(item.id))}
+                      onClick={() => handleRemoveItem(item.id)}
                     />
                   </div>
                 </div>
